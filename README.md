@@ -10,10 +10,20 @@ It scans your repositories' workflow run logs within the compromise window, sear
 
 ## Installation
 
+### Using `go install` (recommended)
+
+```bash
+go install github.com/step-security/trivy-compromise-scanner@latest
+```
+
+This installs the `trivy-compromise-scanner` binary to your `$GOPATH/bin`.
+
+### Build from source
+
 ```bash
 git clone https://github.com/step-security/trivy-compromise-scanner
 cd trivy-compromise-scanner
-go build -o trivy-scanner .
+go build -o trivy-compromise-scanner .
 ```
 
 Requires Go 1.25+.
@@ -23,7 +33,7 @@ Requires Go 1.25+.
 ## Usage
 
 ```
-./trivy-scanner [flags]
+trivy-compromise-scanner [flags]
 ```
 
 ### Flags
@@ -54,27 +64,27 @@ At least one of `--org` or `--repo` is required.
 
 ```bash
 # Validate PAT permissions without scanning
-trivy-scanner --token $GITHUB_TOKEN --repo owner/repo --dry-run
+trivy-compromise-scanner--token $GITHUB_TOKEN --repo owner/repo --dry-run
 
 # Scan a single repo, output JSON to stdout
-trivy-scanner --token $GITHUB_TOKEN --repo owner/repo
+trivy-compromise-scanner--token $GITHUB_TOKEN --repo owner/repo
 
 # Scan a single repo, save JSON to file
-trivy-scanner --token $GITHUB_TOKEN --repo owner/repo --output results.json
+trivy-compromise-scanner--token $GITHUB_TOKEN --repo owner/repo --output results.json
 
 # Scan multiple repos
-trivy-scanner --token $GITHUB_TOKEN \
+trivy-compromise-scanner--token $GITHUB_TOKEN \
   --repo owner/repo1 \
   --repo owner/repo2
 
 # Scan an entire organization, output CSV
-trivy-scanner --token $GITHUB_TOKEN \
+trivy-compromise-scanner--token $GITHUB_TOKEN \
   --org myorg \
   --format csv \
   --output results.csv
 
 # Scan with verbose logging and custom time window
-trivy-scanner --token $GITHUB_TOKEN \
+trivy-compromise-scanner--token $GITHUB_TOKEN \
   --repo owner/repo \
   --since 2026-03-19T00:00:00Z \
   --until 2026-03-20T23:59:59Z \

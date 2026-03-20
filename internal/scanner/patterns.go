@@ -87,6 +87,15 @@ var CompromisedActions = map[string][]string{
 		"da73ae0790e458e878b300b57ceb5f81ac573b46", // 0.9.1
 		"7550f14b64c1c724035a075b36e71423719a1f30", // 0.9.2
 	},
+	"aquasecurity/setup-trivy": {
+		"8afa9b9f9183b4e00c46e2b82d34047e3c177bd0",
+		"386c0f18ac3d7f2ed33e2d884761119f4024ff8a",
+		"384add36b52014a0f99c0ab3a3d58bd47e53d00f",
+		"7a4b6f31edb8db48cc22a1d41e298b38c4a6417e",
+		"6d8d730153d6151e03549f276faca0275ed9c7b2",
+		"99b93c070aac11b52dfc3e41a55cbb24a331ae75",
+		"f4436225d8a5fd1715d3c2290d8a50643e726031",
+	},
 }
 
 // ActionPattern is a compiled pattern for a single action + one of its SHAs.

